@@ -111,13 +111,29 @@ long LinuxParser::Jiffies() { return 0; }
 long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
 
 // TODO: Read and return the number of active jiffies for the system
+// Not used. Bonus implementation in processor class.
 long LinuxParser::ActiveJiffies() { return 0; }
 
 // TODO: Read and return the number of idle jiffies for the system
+// Not used. Bonus implementation in processor class.
 long LinuxParser::IdleJiffies() { return 0; }
 
 // TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
+vector<string> LinuxParser::CpuUtilization() { 
+  string line;
+  vector<string> numbers;
+  std::ifstream stream(kProcDirectory + kStatFilename);
+  if (stream.is_open()) {
+    if (std::getline(stream, line)) {
+      std::istringstream linestream(line);
+      string num; 
+      while (linestream >> num){
+        numbers.push_back(num);
+      }
+    }
+  }
+  return numbers;
+ }
 
 // TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() {
