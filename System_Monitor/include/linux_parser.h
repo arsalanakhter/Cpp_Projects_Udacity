@@ -26,6 +26,7 @@ int TotalProcesses();
 int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
+std::vector<std::string> IndividualProcessCpuUtilization(int pid); 
 
 // CPU
 enum CPUStates {
