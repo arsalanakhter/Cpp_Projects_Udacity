@@ -29,6 +29,17 @@ public:
 
     //// STUDENT CODE
     ////
+    // Task 2: Need the following for rule of five
+    // Copy Constructor (Implementing Deep Copying Policy)
+    ChatBot(ChatBot &source);
+    // Copy Assignment Operator
+    ChatBot &operator=(ChatBot &source);
+    // Destructor (Already there - Check if need any modification)
+    // Move Constructor
+    ChatBot(ChatBot &&source);
+    // Move Assignment Operator.
+    ChatBot &operator=(ChatBot &&source); 
+
 
     ////
     //// EOF STUDENT CODE

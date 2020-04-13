@@ -44,6 +44,71 @@ ChatBot::~ChatBot()
 
 //// STUDENT CODE
 ////
+// Task 2: Copy Constructor
+ChatBot::ChatBot(ChatBot &source)
+{
+    std::cout << "Copying ChatBot (constructor) instance " << &source << " to instance " << this << std::endl;
+    *_currentNode = *source._currentNode;
+    *_rootNode = *source._rootNode;
+    *_chatLogic = *source._chatLogic;
+    _image = new wxBitmap();
+}
+
+
+// Task 2: Copy assignment Operator
+ChatBot &ChatBot::operator=(ChatBot &source)
+{
+    std::cout << "Copying ChatBot (assignment) instance " << &source << " to instance " << this << std::endl;
+    *_currentNode = *source._currentNode;
+    *_rootNode = *source._rootNode;
+    *_chatLogic = *source._chatLogic;
+    _image = new wxBitmap();
+    return *this;
+}
+
+// Task 2: Move Constructor
+ChatBot::ChatBot(ChatBot &&source) 
+{
+    std::cout << "Moving ChatBot (constructor) instance " << &source << " to instance " << this << std::endl;
+    _image = source._image; // avatar image
+    source._image = NULL;
+
+    // data handles (not owned)
+    _currentNode = source._currentNode;
+    source._currentNode = nullptr;
+    _rootNode = source._rootNode;
+    source._rootNode = nullptr;
+    _chatLogic = source._chatLogic;
+    source._chatLogic = nullptr;
+}
+// Task 2: Move Assignment Operator
+ChatBot &ChatBot::operator=(ChatBot &&source)
+{
+    std::cout << "Moving Chatbot (assign) instance " << &source << " to instance " << this << std::endl;
+    if (this == &source)
+        return *this;
+
+    _image = NULL; // avatar image
+
+    // data handles (not owned)
+    _currentNode = nullptr;
+    _rootNode = nullptr;
+    _chatLogic = nullptr;
+
+    _image = source._image; // avatar image
+    // data handles (not owned)
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+
+    source._image = NULL;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+
+    return *this;
+}
+
 
 ////
 //// EOF STUDENT CODE
