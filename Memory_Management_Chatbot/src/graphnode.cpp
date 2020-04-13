@@ -11,7 +11,8 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // Warm-up task. Remove Initial Seg Fault by commenting next line
+    // delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
