@@ -17,7 +17,11 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphNode *> _nodes;
+    
+    // Task 3: Adapt vector<GraphNode*> so that its a vector of unique pointers 
+    //std::vector<GraphNode *> _nodes;
+    std::vector<std::unique_ptr<GraphNode>> _nodes;
+
     std::vector<GraphEdge *> _edges;
 
     ////
