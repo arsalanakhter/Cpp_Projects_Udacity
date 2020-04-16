@@ -18,7 +18,7 @@ ChatLogic::ChatLogic()
     ////
 
     // create instance of chatbot
-    _chatBot = std::make_unique(new ChatBot("../images/chatbot.png"));
+    _chatBot = new ChatBot("../images/chatbot.png");
 
     // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
     _chatBot->SetChatLogicHandle(this);
@@ -135,7 +135,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
                         if (newNode == _nodes.end())
                         {
                             // Task 3: make GraphNode Pointer unique
-                            _nodes.emplace_back(std::move(std::make_unique<GraphNode>(id))));
+                            _nodes.emplace_back(std::make_unique<GraphNode>(id));
                             newNode = _nodes.end() - 1; // get iterator to last element
 
                             // add all answers to current node
@@ -223,7 +223,8 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
 
     // add chatbot to graph root node
     _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(_chatBot);
+    // Move ChatBot since it is an exclusive resource
+    rootNode->MoveChatbotHere(std::move(_chatBot));
     
     ////
     //// EOF STUDENT CODE

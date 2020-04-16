@@ -45,24 +45,28 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 // Task 2: Copy Constructor
-ChatBot::ChatBot(ChatBot &source)
+ChatBot::ChatBot(const ChatBot &source)
 {
     std::cout << "Copying ChatBot (constructor) instance " << &source << " to instance " << this << std::endl;
-    *_currentNode = *source._currentNode;
-    *_rootNode = *source._rootNode;
-    *_chatLogic = *source._chatLogic;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = new wxBitmap();
+    *_image = *source._image;
 }
 
 
 // Task 2: Copy assignment Operator
-ChatBot &ChatBot::operator=(ChatBot &source)
+ChatBot &ChatBot::operator=(const ChatBot &source)
 {
     std::cout << "Copying ChatBot (assignment) instance " << &source << " to instance " << this << std::endl;
-    *_currentNode = *source._currentNode;
-    *_rootNode = *source._rootNode;
-    *_chatLogic = *source._chatLogic;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     _image = new wxBitmap();
+    *_image = *source._image;
     return *this;
 }
 
@@ -79,6 +83,7 @@ ChatBot::ChatBot(ChatBot &&source)
     _rootNode = source._rootNode;
     source._rootNode = nullptr;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
     source._chatLogic = nullptr;
 }
 // Task 2: Move Assignment Operator
@@ -100,6 +105,7 @@ ChatBot &ChatBot::operator=(ChatBot &&source)
     _currentNode = source._currentNode;
     _rootNode = source._rootNode;
     _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
 
     source._image = NULL;
     source._currentNode = nullptr;
