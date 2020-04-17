@@ -18,12 +18,15 @@ private:
 
     // data handles (owned)
     
-    // Task 3: Adapt vector<GraphNode*> so that its a vector of unique pointers 
+    // Task 3: Adapt vector<GraphNode*> so that it is a vector of unique pointers 
     //std::vector<GraphNode *> _nodes;
     std::vector<std::unique_ptr<GraphNode>> _nodes;
 
-    std::vector<GraphEdge *> _edges;
-
+    // Task 4: Adapt vector<GraphEdge*> so that it is a vector of unique pointers 
+    //std::vector<GraphEdge *> _edges;
+    // std::vector<std::unique_ptr<GraphEdge>> _edges;
+    // Not needed here
+    
     ////
     //// EOF STUDENT CODE
 
