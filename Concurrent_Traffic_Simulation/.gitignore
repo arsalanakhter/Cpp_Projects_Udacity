@@ -1,0 +1,6 @@
+traffic_simulation
+a.out
+settings.json
+*.o
+build/*
+*.json
