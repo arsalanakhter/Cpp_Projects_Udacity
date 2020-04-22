@@ -27,6 +27,12 @@ void MessageQueue<T>::send(T &&msg)
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
+    // initialize the loop cycle
+    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist46(4,6);
+    _loop_end_time = std::chrono::high_resolution_clock::now() + std::chrono::seconds(dist46(rng));
 }
 
 /*
@@ -44,16 +50,41 @@ TrafficLightPhase TrafficLight::getCurrentPhase()
 /*
 void TrafficLight::simulate()
 {
-    // FP.2b : Finally, the private method „cycleThroughPhases“ should be started in a thread when the public method „simulate“ is called. To do this, use the thread queue in the base class. 
+    // FP.2b : Finally, the private method „cycleThroughPhases“ should 
+    //be started in a thread when the public method „simulate“ is called.
+    // To do this, use the thread queue in the base class. 
 }
-
+*/
 // virtual function which is executed in a thread
 void TrafficLight::cycleThroughPhases()
 {
-    // FP.2a : Implement the function with an infinite loop that measures the time between two loop cycles 
-    // and toggles the current phase of the traffic light between red and green and sends an update method 
-    // to the message queue using move semantics. The cycle duration should be a random value between 4 and 6 seconds. 
-    // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles. 
+    // FP.2a : Implement the function with an infinite loop that 
+    // measures the time between two loop cycles 
+    // and toggles the current phase of the traffic light between 
+    // red and green and sends an update method 
+    // to the message queue using move semantics. The cycle 
+    // duration should be a random value between 4 and 6 seconds. 
+    // Also, the while-loop should use std::this_thread::sleep_for 
+    // to wait 1ms between two cycles. 
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist46(4,6);
+
+    while(1)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        auto time_now = std::chrono::high_resolution_clock::now(); 
+        if (time_now > _loop_end_time)
+        {
+            _loop_end_time = time_now + std::chrono::seconds(dist46(rng));
+            switch(_currentPhase)
+            {
+                case TrafficLightPhase::red : _currentPhase = TrafficLightPhase::green;
+                case TrafficLightPhase::green : _currentPhase = TrafficLightPhase::red;
+                default: _currentPhase = TrafficLightPhase::red;
+            }
+        }
+    }
 }
 
-*/
