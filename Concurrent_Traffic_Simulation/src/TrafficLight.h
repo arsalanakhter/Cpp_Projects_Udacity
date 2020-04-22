@@ -46,7 +46,7 @@ public:
     // getters / setters
 
     // typical behaviour methods
-//    void waitForGreen();
+    void waitForGreen();
     void simulate();
     TrafficLightPhase getCurrentPhase();
 
