@@ -35,7 +35,7 @@ private:
 // Furthermore, there shall be the private member _currentPhase which can take „red“ or „green“ as its value. 
 
 // Define the enum class TrafficLightPhase
-enum TrafficLightPhase {red, green};
+enum TrafficLightPhase {green, red};
 
 class TrafficLight : public TrafficObject
 {
