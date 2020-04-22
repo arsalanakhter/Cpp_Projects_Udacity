@@ -35,7 +35,7 @@ private:
 // Furthermore, there shall be the private member _currentPhase which can take „red“ or „green“ as its value. 
 
 // Define the enum class TrafficLightPhase
-enum class TrafficLightPhase {red, green};
+enum TrafficLightPhase {red, green};
 
 class TrafficLight : public TrafficObject
 {
@@ -47,7 +47,7 @@ public:
 
     // typical behaviour methods
 //    void waitForGreen();
-//    void simulate();
+    void simulate();
     TrafficLightPhase getCurrentPhase();
 
 private:
@@ -63,6 +63,7 @@ private:
 
     std::condition_variable _condition;
     std::mutex _mutex;
+    std::shared_ptr<MessageQueue<TrafficLightPhase>> _msg_queue;
 };
 
 #endif
